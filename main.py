@@ -59,61 +59,60 @@ class HelpDropdown(discord.ui.Select):
         self.authorid = authorid
         super().__init__(placeholder='Choose Command Category', min_values=1, max_values=1, options=options)
     async def callback(self, interaction: discord.Interaction):
-        if self.values[0] == "Info":
-            if self.authorid == interaction.user.id:
-                embed=discord.Embed(title="Yellow Pterodactyl - Info Commands", colour=discord.Colour.random())
-                embed.add_field(name=f"{c['prefix']}help",value="View this help menu.",inline=False)
-                embed.add_field(name=f"{c['prefix']}stats",value="View bot stats.",inline=False)
-                embed.add_field(name=f"{c['prefix']}ping",value="Get bot ping.",inline=False)
-                embed.add_field(name=f"{c['prefix']}vote",value="Vote for me on top.gg!",inline=False)
-                embed.set_thumbnail(url="https://images-ext-1.discordapp.net/external/4zTjIjkHc-SZduIGBSaA9mZFtMYawoVozGtzdoZUHm0/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1037361246464393216/f068ac884e61133caaa896a4a52e51cc.png")
-                await interaction.response.edit_message(embed=embed)
-            else:
-                embed=discord.Embed(title="Error!", description="This is not your embed! Run ``!help`` then try again.", colour=discord.Colour.red())
-                await interaction.response.send_message(embed=embed,ephemeral=True)
-        elif self.values[0] == "Fun":
-            if self.authorid == interaction.user.id:
-                embed=discord.Embed(title="Yellow Pterodactyl - Fun Commands", colour=discord.Colour.random())
-                embed.add_field(name=f"{c['prefix']}8ball",value="Use a magic 8 ball.",inline=False)
-                embed.add_field(name=f"{c['prefix']}cat",value="Generate an image of a cat.",inline=False)
-                embed.add_field(name=f"{c['prefix']}dog",value="Generate an image of a dog.",inline=False)
-                embed.add_field(name=f"{c['prefix']}donaldtweet",value="Post a tweet as Donald Trump.",inline=False)
-                embed.add_field(name=f"{c['prefix']}texttobraille",value="Convert text into braille.",inline=False)
-                embed.set_thumbnail(url="https://images-ext-1.discordapp.net/external/4zTjIjkHc-SZduIGBSaA9mZFtMYawoVozGtzdoZUHm0/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1037361246464393216/f068ac884e61133caaa896a4a52e51cc.png")
-                await interaction.response.edit_message(embed=embed)
-            else:
-                embed=discord.Embed(title="Error!", description="This is not your embed! Run ``!help`` then try again.", colour=discord.Colour.red())
-                await interaction.response.send_message(embed=embed,ephemeral=True)
-        elif self.values[0] == "Utility":
-            if self.authorid == interaction.user.id:
-                embed=discord.Embed(title="Yellow Pterodactyl - Utility Commands", colour=discord.Colour.random())
-                embed.add_field(name=f"{c['prefix']}avatar",value="Grab someone's avatar.",inline=False)
-                embed.add_field(name=f"{c['prefix']}serverinfo",value="Get info on the current server.",inline=False)
-                embed.add_field(name=f"{c['prefix']}userinfo",value="Get info on a user.",inline=False)
-                embed.set_thumbnail(url="https://images-ext-1.discordapp.net/external/4zTjIjkHc-SZduIGBSaA9mZFtMYawoVozGtzdoZUHm0/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1037361246464393216/f068ac884e61133caaa896a4a52e51cc.png")
-                await interaction.response.edit_message(embed=embed)
-            else:
-                embed=discord.Embed(title="Error!", description="This is not your embed! Run ``!help`` then try again.", colour=discord.Colour.red())
-                await interaction.response.send_message(embed=embed,ephemeral=True)
-        elif self.values[0] == "Moderation":
-            if self.authorid == interaction.user.id:
-                embed=discord.Embed(title="Yellow Pterodactyl - Moderation Commands", colour=discord.Colour.random())
-                embed.add_field(name=f"{c['prefix']}purge",value="Purge an amount of messages.",inline=False)
-                embed.add_field(name=f"{c['prefix']}ban",value="Ban a user from your server.",inline=False)
-                embed.add_field(name=f"{c['prefix']}unban",value="Unban a user from your server",inline=False)
-                embed.set_thumbnail(url="https://images-ext-1.discordapp.net/external/4zTjIjkHc-SZduIGBSaA9mZFtMYawoVozGtzdoZUHm0/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1037361246464393216/f068ac884e61133caaa896a4a52e51cc.png")
-                await interaction.response.edit_message(embed=embed)
-            else:
-                embed=discord.Embed(title="Error!", description="This is not your embed! Run ``!help`` then try again.", colour=discord.Colour.red())
-                await interaction.response.send_message(embed=embed,ephemeral=True)
+      if self.values[0] == "Info":
+        if self.authorid == interaction.user.id:
+            embed=discord.Embed(title="Yellow Pterodactyl - Info Commands", colour=discord.Colour.random())
+            embed.add_field(name=f"{c['prefix']}help",value="View this help menu.",inline=False)
+            embed.add_field(name=f"{c['prefix']}stats",value="View bot stats.",inline=False)
+            embed.add_field(name=f"{c['prefix']}ping",value="Get bot ping.",inline=False)
+            embed.add_field(name=f"{c['prefix']}vote",value="Vote for me on top.gg!",inline=False)
+            embed.set_thumbnail(url="https://images-ext-1.discordapp.net/external/4zTjIjkHc-SZduIGBSaA9mZFtMYawoVozGtzdoZUHm0/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1037361246464393216/f068ac884e61133caaa896a4a52e51cc.png")
+            await interaction.response.edit_message(embed=embed)
         else:
-            if self.authorid == interaction.user.id:
-                embed=discord.Embed(title="Yellow Pterodactyl - Error!", description="Somehow you selected a choice i did not know was there!",colour=discord.Colour.red())
-                embed.set_thumbnail(url="https://images-ext-1.discordapp.net/external/4zTjIjkHc-SZduIGBSaA9mZFtMYawoVozGtzdoZUHm0/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1037361246464393216/f068ac884e61133caaa896a4a52e51cc.png")
-                await interaction.response.edit_message(embed=embed)
-            else:
-                embed=discord.Embed(title="Error!", description="This is not your embed! Run ``!help`` then try again.", colour=discord.Colour.red())
-                await interaction.response.send_message(embed=embed,ephemeral=True)
+            embed=discord.Embed(title="Error!", description="This is not your embed! Run ``!help`` then try again.", colour=discord.Colour.red())
+            await interaction.response.send_message(embed=embed,ephemeral=True)
+      elif self.values[0] == "Fun":
+          if self.authorid == interaction.user.id:
+              embed=discord.Embed(title="Yellow Pterodactyl - Fun Commands", colour=discord.Colour.random())
+              embed.add_field(name=f"{c['prefix']}8ball",value="Use a magic 8 ball.",inline=False)
+              embed.add_field(name=f"{c['prefix']}cat",value="Generate an image of a cat.",inline=False)
+              embed.add_field(name=f"{c['prefix']}dog",value="Generate an image of a dog.",inline=False)
+              embed.add_field(name=f"{c['prefix']}donaldtweet",value="Post a tweet as Donald Trump.",inline=False)
+              embed.add_field(name=f"{c['prefix']}texttobraille",value="Convert text into braille.",inline=False)
+              embed.set_thumbnail(url="https://images-ext-1.discordapp.net/external/4zTjIjkHc-SZduIGBSaA9mZFtMYawoVozGtzdoZUHm0/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1037361246464393216/f068ac884e61133caaa896a4a52e51cc.png")
+              await interaction.response.edit_message(embed=embed)
+          else:
+              embed=discord.Embed(title="Error!", description="This is not your embed! Run ``!help`` then try again.", colour=discord.Colour.red())
+              await interaction.response.send_message(embed=embed,ephemeral=True)
+      elif self.values[0] == "Utility":
+          if self.authorid == interaction.user.id:
+              embed=discord.Embed(title="Yellow Pterodactyl - Utility Commands", colour=discord.Colour.random())
+              embed.add_field(name=f"{c['prefix']}avatar",value="Grab someone's avatar.",inline=False)
+              embed.add_field(name=f"{c['prefix']}serverinfo",value="Get info on the current server.",inline=False)
+              embed.add_field(name=f"{c['prefix']}userinfo",value="Get info on a user.",inline=False)
+              embed.set_thumbnail(url="https://images-ext-1.discordapp.net/external/4zTjIjkHc-SZduIGBSaA9mZFtMYawoVozGtzdoZUHm0/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1037361246464393216/f068ac884e61133caaa896a4a52e51cc.png")
+              await interaction.response.edit_message(embed=embed)
+          else:
+              embed=discord.Embed(title="Error!", description="This is not your embed! Run ``!help`` then try again.", colour=discord.Colour.red())
+              await interaction.response.send_message(embed=embed,ephemeral=True)
+      elif self.values[0] == "Moderation":
+          if self.authorid == interaction.user.id:
+              embed=discord.Embed(title="Yellow Pterodactyl - Moderation Commands", colour=discord.Colour.random())
+              embed.add_field(name=f"{c['prefix']}purge",value="Purge an amount of messages.",inline=False)
+              embed.add_field(name=f"{c['prefix']}ban",value="Ban a user from your server.",inline=False)
+              embed.add_field(name=f"{c['prefix']}unban",value="Unban a user from your server",inline=False)
+              embed.set_thumbnail(url="https://images-ext-1.discordapp.net/external/4zTjIjkHc-SZduIGBSaA9mZFtMYawoVozGtzdoZUHm0/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1037361246464393216/f068ac884e61133caaa896a4a52e51cc.png")
+              await interaction.response.edit_message(embed=embed)
+          else:
+              embed=discord.Embed(title="Error!", description="This is not your embed! Run ``!help`` then try again.", colour=discord.Colour.red())
+              await interaction.response.send_message(embed=embed,ephemeral=True)
+      elif self.authorid == interaction.user.id:
+        embed=discord.Embed(title="Yellow Pterodactyl - Error!", description="Somehow you selected a choice i did not know was there!",colour=discord.Colour.red())
+        embed.set_thumbnail(url="https://images-ext-1.discordapp.net/external/4zTjIjkHc-SZduIGBSaA9mZFtMYawoVozGtzdoZUHm0/%3Fsize%3D1024/https/cdn.discordapp.com/avatars/1037361246464393216/f068ac884e61133caaa896a4a52e51cc.png")
+        await interaction.response.edit_message(embed=embed)
+      else:
+        embed=discord.Embed(title="Error!", description="This is not your embed! Run ``!help`` then try again.", colour=discord.Colour.red())
+        await interaction.response.send_message(embed=embed,ephemeral=True)
 class HelpDropdownView(discord.ui.View):
     def __init__(self, authorid):
         super().__init__(timeout=None)
@@ -132,21 +131,19 @@ async def help(ctx):
 #Stats Command
 @bot.command(name='stats', aliases=['botstats'])
 async def stats(ctx):
-    usercount = len(list(filter(lambda m: m.bot == False, bot.users)))
-    await Webhooklogging(c['webhookurl'], f"{ctx.author} | {ctx.guild.id} -> {c['prefix']}stats")
-    embed = discord.Embed(
-        title = f'My Stats:',
-        colour=discord.Colour.random())
-    embed.add_field(name="Bot Owner", value="<@763471049894527006> (763471049894527006) Gamer3514#7679", inline=False)
-    embed.add_field(name="Cpu Cores", value=multiprocessing.cpu_count(), inline=False)
-    embed.add_field(name="Server Count", value=f"{len(bot.guilds)}", inline=False)
-    embed.add_field(name="User Count", value=f"{usercount}", inline=False)
-    embed.add_field(name="User Count (Including Bots)", value=f"{len(list(bot.users))}", inline=False)
-    embed.add_field(name="Bot Latency", value=f"{round(bot.latency * 1000)}ms", inline=False)
-    embed.add_field(name="Cpu Usage", value=f"{psutil.cpu_percent()}%", inline=False)
-    embed.add_field(name="Memory Usage", value=f"{psutil.virtual_memory().percent}%", inline=False)
-    embed.add_field(name="Total Memory", value=f"{round(psutil.virtual_memory().total / (1024.0 **3))} GB", inline=False)
-    await ctx.send(embed=embed)
+  usercount = len(list(filter(lambda m: m.bot == False, bot.users)))
+  await Webhooklogging(c['webhookurl'], f"{ctx.author} | {ctx.guild.id} -> {c['prefix']}stats")
+  embed = discord.Embed(title='My Stats:', colour=discord.Colour.random())
+  embed.add_field(name="Bot Owner", value="<@763471049894527006> (763471049894527006) Gamer3514#7679", inline=False)
+  embed.add_field(name="Cpu Cores", value=multiprocessing.cpu_count(), inline=False)
+  embed.add_field(name="Server Count", value=f"{len(bot.guilds)}", inline=False)
+  embed.add_field(name="User Count", value=f"{usercount}", inline=False)
+  embed.add_field(name="User Count (Including Bots)", value=f"{len(list(bot.users))}", inline=False)
+  embed.add_field(name="Bot Latency", value=f"{round(bot.latency * 1000)}ms", inline=False)
+  embed.add_field(name="Cpu Usage", value=f"{psutil.cpu_percent()}%", inline=False)
+  embed.add_field(name="Memory Usage", value=f"{psutil.virtual_memory().percent}%", inline=False)
+  embed.add_field(name="Total Memory", value=f"{round(psutil.virtual_memory().total / (1024.0 **3))} GB", inline=False)
+  await ctx.send(embed=embed)
 @bot.command(aliases=['botping'])
 async def ping(ctx):
     await Webhooklogging(c['webhookurl'], f"{ctx.author} | {ctx.guild.id} -> {c['prefix']}ping")
