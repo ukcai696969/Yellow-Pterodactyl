@@ -7,6 +7,10 @@ from discord_webhook import DiscordWebhook
 import random
 import shutil
 import multiprocessing
+import aiosqlite 
+import datetime
+import aiohttp
+import asyncio
 import requests
 import logging
 from discord.ext import commands
@@ -47,6 +51,11 @@ async def Webhooklogging(channel,message):
 async def on_ready():
     print(f'{bot.user} Is Now Online!')
     await bot.loop.create_task(StatusChange())
+       bot.db = await aiosqlite.connect('warns.db')
+    await asyncio.sleep(3)
+    async with bot.db.cursor() as cursor:
+        await cursor.execute('CREATE TABLE IF NOT EXISTS warns(user INTEGER, reason TEXT, time INTEGER, guild INTEGER)')
+    await bot.db.commit()
 #------------------------------------------Bot Menus-------------------------------------------------
 class HelpDropdown(discord.ui.Select):
     def __init__(self,authorid):
@@ -290,6 +299,56 @@ async def ban(ctx, member : discord.Member, *, reason = None):
     else:
         embed = discord.Embed(colour=discord.Colour.red(), title="Error!", description=f"You do not have enough permissions to ban {member}")
         await ctx.send(embed=embed)
+        
+#warn system made by #ukcai4296
+async def addwarn(ctx, reason, user):
+    async with bot.db.cursor() as cursor:
+        await cursor.execute('INSERT INTO warns(user, reason, time, guild) VALUES (?, ?, ?, ?)', (user.id, reason, int(datetime.datetime.now().timestamp()), ctx.guild.id))
+    await bot.db.commit()
+
+@bot.command()
+@commands.has_permissions(manage_messages=True)
+async def warn(ctx, member: discord.Member, *, reason: str= "No Reason Provided"):
+    await addwarn(ctx, reason, member)
+    embed = discord.Embed(title="Warned", description=f"Warned {member.mention} for {reason}")
+    await ctx.send(embed=embed)
+
+
+@bot.command()
+@commands.has_permissions(manage_guild=True)
+async def removewarn(ctx, member: discord.Member):
+    async with bot.db.cursor() as cursor:
+        await cursor.execute('SELECT reason FROM warns WHERE user = ? AND guild = ?', (member.id, ctx.guild.id))
+        data = await cursor.fetchone()
+        if data:
+            await cursor.execute('DELETE FROM warns WHERE user = ? AND guild = ?', (member.id, ctx.guild.id))
+            em = discord.Embed(title="Removed", description="deleted users warning")
+            await ctx.send(embed=em)
+        else:
+            emm = discord.Embed(title="no warns", description="no warnings found")
+            await ctx.send(embed=emm)
+        await bot.db.commit()
+
+
+@bot.command()
+@commands.has_permissions(manage_messages=True)
+async def warnings(ctx, member: discord.Member):
+    async with bot.db.cursor() as cursor:
+        await cursor.execute('SELECT reason, time FROM warns WHERE user = ? AND guild = ?', (member.id, ctx.guild.id))
+        data = await cursor.fetchall()
+        if data:
+            em = discord.Embed(title=f"{member.name} Warnings")
+            warnnum = 0
+            for table in data:
+                warnnum += 1
+                em.add_field(name=f"Waring {warnnum}", value=f"Reason: {table[0]} | Date Issued: <t:{int(table[1])}:F>")
+            await ctx.send(embed=em)
+        else:
+            embed = discord.Embed(title="no warnings", description="no warnings found")
+            await ctx.send(embed=embed)
+                                 
+        
+        
 #Unban Command
 @bot.command(aliases=['unbanuser'])
 async def unban(ctx, *, member):
